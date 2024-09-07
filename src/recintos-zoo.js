@@ -19,7 +19,6 @@ class RecintosZoo {
     }
 
     analisaRecintos(animal, quantidade) {
-
         const infoAnimal = this.animaisPermitidos[animal.toLowerCase()];
         if (!infoAnimal) {
             return { erro: 'Animal inválido' };
@@ -31,17 +30,16 @@ class RecintosZoo {
 
         const recintosViaveis = [];
 
-
         this.recintos.forEach(recinto => {
-            if (!infoAnimal.biomas.includes(recinto.bioma.split(' e ')[0]) && !infoAnimal.biomas.includes(recinto.bioma.split(' e ')[1])) {
+            const biomasRecinto = recinto.bioma.split(' e ');
+            if (!biomasRecinto.some(bioma => infoAnimal.biomas.includes(bioma))) {
                 return;
             }
 
             let espacoOcupado = recinto.animais.reduce((total, animal) => total + animal.quantidade * animal.tamanho, 0);
-
             const temOutraEspecie = recinto.animais.some(a => a.especie !== animal.toLowerCase());
             if (temOutraEspecie) {
-                espacoOcupado += 1;
+                espacoOcupado += 1; 
             }
 
             const espacoRestante = recinto.tamanho - espacoOcupado;
@@ -51,7 +49,7 @@ class RecintosZoo {
             if (infoAnimal.carnivoro && recinto.animais.length > 0) {
                 return;
             }
-            if (carnívoroExistente) {
+            if (carnívoroExistente && !infoAnimal.toleraOutros) {
                 return;
             }
 
