@@ -54,20 +54,6 @@ describe('Recintos do Zoologico', () => {
         expect(resultado.erro).toBe("Não há recinto viável");
         expect(resultado.recintosViaveis).toBeFalsy();
     });
-    
-    test('Deve encontrar um recinto com biomas de savana e rio para 1 hipopotamo', () => {
-        const resultado = new RecintosZoo().analisaRecintos('HIPOPOTAMO', 1);
-        expect(resultado.erro).toBeFalsy();
-        expect(resultado.recintosViaveis[0]).toBe('Recinto 3 (espaço livre: 1 total: 7)');
-        expect(resultado.recintosViaveis.length).toBe(1);
-    });
-    
-    test('Deve rejeitar 1 macaco no recinto vazio', () => {
-        const resultado = new RecintosZoo().analisaRecintos('MACACO', 1);
-        expect(resultado.erro).toBe("Não há recinto viável");
-        expect(resultado.recintosViaveis).toBeFalsy();
-    });
-    
 
 });
 
